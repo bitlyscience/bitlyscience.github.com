@@ -1,21 +1,22 @@
 body {
-    font-family: 'Cantata One', serif;
+    font-family: 'PT Mono', sans-serif;
+    margin-left: 40px;
 }
 h1 {
     font-size: 48px;
+    font-family: 'Cantata One', serif;
 }
 h2 {
     font-size: 20px;
 }
 p {
-    font-family: 'PT Mono', sans-serif;
     font-size: 12px;
-}
-.body {
-   margin-left: 40px;
 }
 .science_title {
     margin-top: 40px;
     margin-bottom: 40px;
+    margin-left: 20px;
 }
-
+.projects {
+    margin-top: 20px;
+}

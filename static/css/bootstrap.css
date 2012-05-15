@@ -1,0 +1,36 @@
+body {
+    font-family: 'PT Mono', sans-serif;
+    margin-left: 40px;
+}
+h1 {
+    font-size: 48px;
+    font-family: 'Cantata One', serif;
+}
+h2 {
+    font-size: 20px;
+}
+p {
+    font-size: 12px;
+}
+
+a:link {
+    color: black;
+}
+a:visited {
+    color: black;
+}
+a:hover {
+    color: orange;
+}
+a:active {
+    color: orange;
+}
+
+.science_title {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left: 20px;
+}
+.projects {
+    margin-top: 20px;
+}

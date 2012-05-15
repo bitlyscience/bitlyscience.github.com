@@ -1,7 +1,7 @@
-<script src="static/d3.v2.js"></script>
 
 <html>
 <head>
+<script type="text/javascript" src="static/d3.v2.js"></script>
 <link href="static/css/bootstrap.css" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Cantata+One' rel='stylesheet' type='text/css'>    
@@ -13,9 +13,18 @@
     </div>
     <div class="science_graph">
 
+<script>
+
+d3.csv("data/marathon.csv", function(data) {
+    d3.select(".science_graph")
+    .append("svg")
+    .enter()
+}
+</script>
+
     </div>
     <div class="blerb">
-        <h2>check out our latest blog post >> <a href="http://blog.bitly.com">Time Is On Your Side</a></h2>
+        <h2>check out our latest blog post >> <a href="http://blog.bitly.com">time is on your side</a></h2>
     </div>
     <div class="projects">
 	<h2>lab reports</h2>

@@ -1,6 +1,12 @@
 body {
     font-family: 'Cantata One', serif;
 }
+h1 {
+    font-size: 24px;
+}
+h2 {
+    font-size: 12px;
+}
 p {
     font-family: 'PT Mono', sans-serif;
     font-size: 12px;

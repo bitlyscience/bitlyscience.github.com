@@ -21,8 +21,8 @@ d3.csv("data/marathon.csv", function(data) {
     .attr("class", "chart")
     .enter()
     .append("rect")
-    .attr("x", function(d, i) { return x(i) - .5; })
-    .attr("y", function(d) { return d.value })
+    .attr("width", "20" })
+    .attr("height", function(d) { return d.value })
 })
 </script>
 

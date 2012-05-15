@@ -18,7 +18,11 @@
 d3.csv("data/marathon.csv", function(data) {
     d3.select(".science_graph")
     .append("svg")
+    .attr("class", "chart")
     .enter()
+    .append("rect")
+    .attr("x", function(d, i) { return x(i) - .5; })
+    .attr("y", function(d) { return d.value })
 })
 </script>
 

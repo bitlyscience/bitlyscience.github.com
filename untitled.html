@@ -1,0 +1,9 @@
+d3.csv("data/marathon.csv", function(data) {
+    d3.select(".science_graph")
+    .append("svg")
+    .attr("class", "chart")
+    .enter()
+    .append("rect")
+    .attr("width", "20" })
+    .attr("height", function(d) { return d.value })
+})

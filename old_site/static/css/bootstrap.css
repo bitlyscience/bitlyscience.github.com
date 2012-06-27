@@ -44,22 +44,6 @@ a:active {
 .projects {
     margin-top: 20px;
 }
-.preview {
-  border: solid 1px #ccc;
-  color: #ccc;
-  display: inline-block;
-  height: 80px;
-  margin-bottom: .5em;
-  width: 720px;
-}
-.date {
-  color: #636363;
-  font-size: smaller;
-  margin: 2px 0 0 480px;
-  position: absolute;
-  text-align: right;
-  width: 240px;
-}
 div.chart {
     font-family: sans-serif;
     font-size: 0.7em;

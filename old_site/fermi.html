@@ -1,0 +1,67 @@
+<html>
+<head>
+<script type="text/javascript" src="static/js/d3.v2.js"></script>
+
+<script>
+function draw(data) {
+    
+    var margin = 30,
+        width = 700,
+        height = 300;
+        step = 25
+
+    y_extent = d3.extent(data, function(d){return d.miles})
+    var y_scale = d3.scale.linear()
+        .range([height-margin, margin])
+        .domain(y_extent)
+    x_extent = d3.extent(data, function(d){return d.week})
+    var x_scale = d3.scale.linear()
+        .range([margin, width-margin])
+        .domain(x_extent)
+
+    "use strict";
+    d3.select(".science_graph")
+      .append('svg')
+        .attr('width', width)
+        .attr('height', height)
+      .selectAll("div.bar")
+      .data(data)
+      .enter()
+      .append('rect')
+        .attr('x', function(d) { return x_scale(d.week) })
+        .attr('y', function(d) { return y_scale(d.miles) })
+        .attr('height', function(d) { return height-y_scale(d.miles)})
+        .attr('width', step)
+}
+</script>
+
+<link href="static/css/bootstrap.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Cantata+One' rel='stylesheet' type='text/css'>    
+</head>
+
+<body>
+<div id="content">
+
+<script>
+d3.json('data/marathon.json', draw);
+</script>
+
+<div class="science_title">  
+<h1>science @ bitly</h1>
+</div>
+<div class="science_graph"></div>
+
+<div class="blerb">
+<h2>check out our latest blog post >> <a href="http://blog.bitly.com">time is on your side</a></h2>
+</div>
+
+<div class="projects">
+<h2>lab reports</h2>
+    <p>how do i pull in bloggy bits?</p>
+    <p>also add best charts</p>
+</div>
+</div>
+
+</body>
+</html>

@@ -48,16 +48,16 @@ a:active {
     margin-top: 20px;
 }
 .preview {
-  border: solid 1px #ccc;
-  display: inline-block;
-  height: 80px;
-  margin-bottom: 2em;
-  width: 920px;
+    display: inline-block;
+    height: 100px;
+    margin-bottom: 3em;
+    width: 920px;
+    font-size: smaller;
+    background-size: 920px;
 }
-.date {
-  font-size: smaller;
-  margin: 2px 0 0 680px;
-  position: absolute;
-  text-align: right;
-  width: 240px;
+.title {
+    margin: 2px 0 0 440px;
+    position: absolute;
+    text-align: right;
+    width: 480px;
 }

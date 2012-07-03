@@ -1,0 +1,138 @@
+<html>
+<head>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="/static/js/d3.v2.js"></script>
+<link rel="stylesheet" type="text/css" href="http://localhost:8000/recipes/data/colours.css">
+<script>
+function draw(data) {
+    
+    var path = d3.geo.path();
+
+    d3.select(".science_graph")
+      .append("svg")
+      .selectAll("path")
+      .data(data.features)
+      .enter()
+      .append("path")
+        .attr("d", path)
+        .attr("id", function(d) { return d.properties.name })
+        .style("stroke", "white")
+        .style("stroke-width", 2)
+        .on("mouseover", function(d) {
+            d3.selectAll("path")
+              .style("opacity", 0.3)
+            d3.select("#"+d.properties.name)
+              .style("opacity", 1)
+              .style("stroke", "black")
+//            d3.selectAll(".graph_title")
+//              .text(d.properties.name)
+            })
+//        .on("click", function(d) {
+//            window.location="http://bitlyscience.github.com"//d.url
+//        })
+        .on("mouseout", function(d) {
+            d3.select("#"+d.properties.name)
+              .style("stroke", "white")
+            d3.selectAll("path")
+              .style("opacity", 1)
+        })
+}
+
+function title(data) {
+    key = {}
+    data.map(function(d) {
+        key[d.name]=d
+    })
+    console.log(key)
+
+    d3.selectAll("path")
+      .on("mouseover", function(d) {
+          console.log("name", d.properties.name)
+          d3.select(".graph_title")
+            .text(key[d.properties.name].title)
+      })
+      .on("mouseout", function(d) {
+          d3.select(".graph_title")
+            .text("")
+      })
+      .on("click", function(d) {
+          window.location=key[d.properties.name].url
+      })
+}
+
+function fill(data) {
+    d3.selectAll("path")
+      .attr("class", function(d) { return "state_" + data[d.properties.name]})
+}
+
+function legend(data) {
+    var margin = 80,
+        width = 920,
+        height = 30,
+        step = 80;
+
+    x_extent = d3.extent(data, function(d){ return d.num })
+    var x_scale = d3.scale.linear()
+        .range([margin, width-margin])
+        .domain(x_extent)
+
+    d3.select(".graph_legend")
+      .selectAll("div.legend")
+      .data(data)
+      .enter()
+      .append('div')
+        .attr("class", "legend")
+        .style("margin-right","0.8em")
+        .style("outline","black solid 1px")
+        .style("color","black")
+        .style("line-height","1.5em")
+        .style("text-align", "center")
+        .style('height', "1.5em")
+        .style("float", "left")
+        .style('width', 80)
+        .text(function(d) {return d.foodtype})
+        .style("background-color", function(d) {
+            return "rgb("+d.color+")"
+            })
+
+}
+
+</script>
+
+<link href="/static/css/bootstrap.css" rel="stylesheet">
+</head>
+
+<body>
+<div id="content">
+
+<script>
+d3.json('/recipes/data/us-states.json', draw);
+d3.json('/recipes/data/index.json', fill);
+d3.json('/recipes/data/title_link.json', title);
+d3.json('/recipes/data/color_key.json', legend);
+</script>
+
+<div class="science_title">  
+<h1>Happy Independence Day, America!</h1>
+</div>
+<div class="blerb">
+<p>Americans love to eat, and love to eat well. We explored July 4th recipes around the United States by using our realtime geographically-aware search service (more on this coming soon) to take a tour of how the united states cooks for independance day.</p>
+</div>
+
+<div class="science_graph">
+</div>
+<div class="graph_title">
+</div>
+<div class="graph_legend">
+</div>
+
+<div class="blerb">
+<p>Check out our <a href="http://bitly.com/bundles/annaksmith/i">bundle!</a> </p>
+<p><a href="http://blog.bitly.com">Back to the bitly blog</a> or to a<a href="http://bitlyscience.github.com">list of bitly science work.</a>
+</div>
+
+
+</div>
+
+</body>
+</html>

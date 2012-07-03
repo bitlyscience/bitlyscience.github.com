@@ -69,10 +69,10 @@ function fill(data) {
 }
 
 function legend(data) {
-    var margin = 80,
+    var margin = 105,
         width = 920,
         height = 30,
-        step = 80;
+        step = 100;
 
     x_extent = d3.extent(data, function(d){ return d.num })
     var x_scale = d3.scale.linear()
@@ -92,7 +92,7 @@ function legend(data) {
         .style("text-align", "center")
         .style('height', "1.5em")
         .style("float", "left")
-        .style('width', 80)
+        .style('width', 105)
         .text(function(d) {return d.foodtype})
         .style("background-color", function(d) {
             return "rgb("+d.color+")"

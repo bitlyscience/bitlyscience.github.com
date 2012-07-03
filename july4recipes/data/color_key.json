@@ -35,16 +35,7 @@
 },
 {
     "num": 8,
-    "color": "252, 205, 229",
-    "foodtype": "soup"
-},
-{
-    "num": 9,
     "color": "217, 217, 217",
     "foodtype": "vegetables"
-},
-{
-    "num": 10,
-    "color": "188, 128, 189",
-    "foodtype": "main dish"
-}]
+}
+]

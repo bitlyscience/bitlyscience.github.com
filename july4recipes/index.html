@@ -2,7 +2,7 @@
 <head>
 <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="/static/js/d3.v2.js"></script>
-<link rel="stylesheet" type="text/css" href="http://localhost:8000/recipes/data/colours.css">
+<link rel="stylesheet" type="text/css" href="/july4recipes/data/colours.css">
 <script>
 function draw(data) {
     
@@ -106,10 +106,10 @@ function legend(data) {
 <div id="content">
 
 <script>
-d3.json('/recipes/data/us-states.json', draw);
-d3.json('/recipes/data/index.json', fill);
-d3.json('/recipes/data/title_link.json', title);
-d3.json('/recipes/data/color_key.json', legend);
+d3.json('/july4recipes/data/us-states.json', draw);
+d3.json('/july4recipes/data/index.json', fill);
+d3.json('/july4recipes/data/title_link.json', title);
+d3.json('/july4recipes/data/color_key.json', legend);
 </script>
 
 <div class="science_title">  
@@ -117,6 +117,7 @@ d3.json('/recipes/data/color_key.json', legend);
 </div>
 <div class="blerb">
 <p>Americans love to eat, and love to eat well. We explored July 4th recipes around the United States by using our realtime geographically-aware search service (more on this coming soon) to take a tour of how the united states cooks for independance day.</p>
+<p>Check out our <a href="http://bitly.com/bundles/annaksmith/i">bundle!</a> </p>
 </div>
 
 <div class="science_graph">
@@ -127,8 +128,8 @@ d3.json('/recipes/data/color_key.json', legend);
 </div>
 
 <div class="blerb">
-<p>Check out our <a href="http://bitly.com/bundles/annaksmith/i">bundle!</a> </p>
-<p><a href="http://blog.bitly.com">Back to the bitly blog</a> or to a<a href="http://bitlyscience.github.com">list of bitly science work.</a>
+
+<p><a href="http://blog.bitly.com">Back to the bitly blog</a> or to a <a href="http://bitlyscience.github.com">list of bitly science work.</a>
 </div>
 
 

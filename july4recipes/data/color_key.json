@@ -1,41 +1,42 @@
-[{
+[
+{
     "color": "141, 211, 199",
-    "num": 1,
+    "num": 0,
     "foodtype": "holiday"
 },
 {
-    "num": 2,
+    "num": 1,
     "color": "255, 255, 179",
     "foodtype": "BBQ"
 },
 {
-    "num": 3,
+    "num": 2,
     "color": "190, 186, 218",
-    "foodtype": "meat"
+    "foodtype": "meats"
 },
 {
-    "num": 4,
+    "num": 3,
     "color": "251, 128, 114",
     "foodtype": "dessert"
 },
 {
-    "num": 5,
+    "num": 4,
     "color": "128, 177, 211",
     "foodtype": "appetizer"
 },
 {
+    "num": 5,
+    "color": "179, 222, 105",
+    "foodtype": "vegetables"
+},
+{
     "num": 6,
     "color": "253, 180, 98",
-    "foodtype": "alcohol"
+    "foodtype": "alcoholic"
 },
 {
     "num": 7,
-    "color": "179, 222, 105",
+    "color": "252, 205, 229",
     "foodtype": "main dish"
-},
-{
-    "num": 8,
-    "color": "217, 217, 217",
-    "foodtype": "vegetables"
 }
 ]

@@ -1,0 +1,127 @@
+<html>
+<head>
+
+<link href="static/css/bootstrap.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33193344-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script language="javascript">
+  var t;
+
+  function animate(){
+  t=setTimeout('animate(count)', 3000);
+  moveRight();
+  }
+
+  var count=0;
+
+  function moveRight(){
+    count = count+1
+    strCount = count
+    if (count<10) {
+        strCount = '0' + count
+    }
+    var newText = document.createTextNode('June ' + strCount + ', 2012');
+    
+    if (count<30) {
+        if (count>1) {
+            show_image('/obama_romney/animation1_totalClicks/svg_animation_obamaObama1_blue/svg_new_'+strCount+'.svg',600,430,'obamaObama',count)
+            show_image2('/obama_romney/animation1_totalClicks/svg_animation_romneyRomney1/svg_new_'+strCount+'.svg',600,430,'obamaObama',count)
+        } else {
+            show_image_new('/obama_romney/animation1_totalClicks/svg_animation_obamaObama1_blue/svg_new_'+strCount+'.svg',600,430,'obamaObama',count)
+            show_image2_new('/obama_romney/animation1_totalClicks/svg_animation_romneyRomney1/svg_new_'+strCount+'.svg',600,430,'obamaObama',count)
+        }
+    } else {
+        clearTimeout(t)
+    }
+  }    
+  
+  function show_image_new(src, width, height, alt,count) {
+    var img = document.createElement("img");
+    img.src = src;
+    img.width = width;
+    img.height = height;
+    img.alt = alt;
+    img.id = count
+    document.body.appendChild(img)
+  }
+  
+  function show_image2_new(src, width, height, alt,count) {
+    var img = document.createElement("img");
+    img.src = src;
+    img.width = width;
+    img.height = height;
+    img.alt = alt;
+    img.id = count
+    document.body.appendChild(img)
+  }
+
+  function show_image(src, width, height, alt,count) {
+    var img = document.createElement("img");
+    img.src = src;
+    img.width = width;
+    img.height = height;
+    img.alt = alt;
+    img.id = count
+    var ochild = document.getElementById(count-1)
+    document.body.replaceChild(img,ochild)
+  }
+
+  function show_image2(src, width, height, alt,count) {
+    var img = document.createElement("img");
+    img.src = src;
+    img.width = width;
+    img.height = height;
+    img.alt = alt;
+    img.id = count
+    var ochild = document.getElementById(count-1)
+    document.body.replaceChild(img,ochild)
+  }
+
+</script>
+
+<a href="javascript:animate()">Start Animation (Shows all days at bottom of page) </a> <br> <a href="javascript:clearTimeout(t)">Stop Animation</a>
+<br>
+<br>
+<br>
+<br>
+<p> The blue heatmaps below show number-of-clicks on articles related to Barack Obama, and the red heatmaps show number-of-clicks on articles related to Mitt Romney (includes articles mentioning candidates in titles, candidate webpages, and twitter/facebook posts). Darker colors denote more clicks. The first five days of June are given below. An animation showing all days of June will play at the bottom of the page once you click the button above.
+<br>
+<br>
+<br>
+<p> June 01, 2012 </p>
+<img src= '/obama_romney/animation1_totalClicks/svg_animation_obamaObama1_blue/svg_new_01.svg';>
+<img src= '/obama_romney/animation1_totalClicks/svg_animation_romneyRomney1/svg_new_01.svg';>
+<br>
+<p> June 02, 2012 </p>
+<img src= '/obama_romney/animation1_totalClicks/svg_animation_obamaObama1_blue/svg_new_02.svg';>
+<img src= '/obama_romney/animation1_totalClicks/svg_animation_romneyRomney1/svg_new_02.svg';>
+<br>
+<p> June 03, 2012 </p>
+<img src= '/obama_romney/animation1_totalClicks/svg_animation_obamaObama1_blue/svg_new_03.svg';>
+<img src= '/obama_romney/animation1_totalClicks/svg_animation_romneyRomney1/svg_new_03.svg';>
+<br>
+<p> June 04, 2012 </p>
+<img src= '/obama_romney/animation1_totalClicks/svg_animation_obamaObama1_blue/svg_new_04.svg';>
+<img src= '/obama_romney/animation1_totalClicks/svg_animation_romneyRomney1/svg_new_04.svg';>
+<br>
+<p> June 05, 2012 </p>
+<img src= '/obama_romney/animation1_totalClicks/svg_animation_obamaObama1_blue/svg_new_05.svg';>
+<img src= '/obama_romney/animation1_totalClicks/svg_animation_romneyRomney1/svg_new_05.svg';>
+<br>
+<br>

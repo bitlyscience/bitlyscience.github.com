@@ -1,0 +1,60 @@
+<html>
+<head>
+
+<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>
+<html>
+<head>
+<link href="/static/css/bootstrap.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<div id="content">
+
+<div class="science_title">  
+<h1>Bitly Boxoffice</h1>
+</div>
+
+<p> 
+<big> Predicting opening weekend film gross with bitly data. </big>
+<br><br><br>
+This project aims to predict the opening weekend gross of movies using features derived from bitly data. The following graph shows a timeseries containing the saved-links-per-hour around the release of Men in Black 3, which occured on May 25, 2012.
+<br><br>
+<img src= '/boxoffice/img/writeup_fig1_MIB.png' width="1000";>
+<br><br><br><br>
+As attention towards a movie grows, so does the number of saved links with content related to the movie. The following graph shows the timeseries of saved-links-per-hour for a few summer blockbusters.
+<br><br>
+<img src= '/boxoffice/img/writeup_fig2.png' width="1000";>
+<br><br><br><br>
+<big><b>Features for supervised learning:</b></big>
+<br><br>
+We would like to derive features from the timeseries signal for use in supervised learning. The following are a collection of features that we can compute from this signal or from prior information about a movie:
+<br><br>
+<b>Total Saves:</b> the sum of the saves that make up the timeseries in a window prior to the release.<br><br>
+<b>Peak Saves:</b> the sum of the saves that make up the timeseries in a window prior to the release.<br><br>
+<b>First Fourier Coefficient:</b> the first coefficient of the fourier transform of the timeseries.<br><br>
+<b>Timeseries Slope:</b> the slope of the line formed by the two endpoints of the timeseries over a window prior to the release.<br><br>
+<b>Theater Count:</b> the number of theaters where a movie plays. <br>
+<img src= '/boxoffice/img/writeup_fig4_rScatter_noAvengers_border.png' width="700";>
+<br><br><br><br>
+We must select a window of time over which we will derive features from the timeseries. We would like this window to end long enough prior to the release to make and/or publish predictions about the opening weekend gross; it is unclear how long before the release the window should start.
+<br><br>
+<img src= '/boxoffice/img/tsWindowFig.png
+' width="1000";>
+<br><br><br><br>
+The following plots show a single feature plotted against weekend movie gross for a range of timeseries windows. The plot areas are shaded by the r-squared coefficient of determination of the plotted points.
+<br><br><br>
+<img src= '/boxoffice/img/rSqu_scatter_fourier.png' width="450";>
+<img src= '/boxoffice/img/rSqu_scatter_totalSaves.png' width="450";>
+<br><br><br><br>
+We also define a distance between timeseries to employ the nearest neighbor algorithm. Additionally, we incorporate nearest neighbor as a feature.
+<br><br><br><br>
+We perform k-fold cross-validation on all permutations of features to select the most predictive subset.
+
+</p>
+
+</div>
+</body>
+</html>

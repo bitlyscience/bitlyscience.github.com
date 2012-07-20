@@ -29,11 +29,13 @@ We set out to see if the amount of attention a movie receives on the social web 
 <br><br><br>
 <big><b>Data:</b></big>
 <br><br>
-The following graph shows a timeseries of the number of saved links with content related to Men in Black 3, for each hour around its release on May 25, 2012.
+<!--The following graph shows a timeseries of the number of saved links with content related to Men in Black 3, for each hour around its release on May 25, 2012.-->
+For example, the following graph shows how the attention toward a major film release--Men in Black 3--increases around the data of its release. You can see a clear rise in attention in the week preceding the opening. We're able to monitor this because, as attention towards a movie grows, so does the number of saved links containing content related to the movie. 
 <br><br>
 <img src= '/boxoffice/img/writeup_fig1_MIB_small.png' width="1000";>
 <br><br><br><br>
-As attention towards a movie grows, so does the number of saved links containing content related to the movie. The following graph shows the timeseries of saved-links-per-hour for a few summer blockbusters.
+<!--As attention towards a movie grows, so does the number of saved links containing content related to the movie. The following graph shows the timeseries of saved-links-per-hour for a few summer blockbusters.-->
+And this increase in attention is not an isolated incident! With all major releases we can see a clear rise in attention preceding the release, followed by a corresponding decrease in attention (as we see below for a few summer blockbusters). Most notably, larger releases garner larger attention. So how do we capture this information to actually predict the box office results?
 <br><br>
 <img src= '/boxoffice/img/writeup_fig2_small.png' width="1000";>
 <br><br><br><br>
@@ -59,9 +61,12 @@ The following plots show a single feature plotted against weekend movie gross fo
 <img src= '/boxoffice/img/writeup_fig5_rSqu_scatter_fourier_small.png' width="450";>
 <img src= '/boxoffice/img/writeup_fig5_rSqu_scatter_totalSaves_small.png' width="450";>
 <br><br><br><br>
-To make more accurate predictions about the opening weekend gross of a given movie, we would like to identify other movies that show a similar pattern of interest. To accomplish this, we define a distance between pairs of timeseries to employ the $k$-nearest-neighbor algorithm. The distance between two timeseries, $ts_{1}$ and $ts_{2}$, is defined to be: <br><br>
-$D(ts_{1},ts_{2}) = \sum_{i} \frac{ ts_{1}(i) - ts_{2}(i) } { \text{max}(\sum ts_{1}, \sum ts_{2}) } $ <br><br>
-where $i$ ranges over each time-point in the timeseries window, $ts(i)$ denotes the timeseries value at time $i$, and $\sum ts$ denotes the sum over all values in the timeseries. This distance metric yields a lower value if two timeseries are of a similar scale and if they have simliar shapes.
+To make more accurate predictions about the opening weekend gross of a given movie, we would like to identify other movies that show a similar pattern of interest. To accomplish this, we define a distance between pairs of timeseries to employ the $k$-nearest-neighbor algorithm. The distance between two timeseries, $s_{1}$ and $s_{2}$, is defined to be: <br><br>
+\[
+D(s_{1},s_{2}) = \sum_{t} \frac{ s_{1}(t) - s_{2}(t) } { \text{max}(\sum s_{1}, \sum s_{2}) } 
+\]
+<br><br>
+where $t$ ranges over each time-point in the timeseries window, $s(t)$ denotes the timeseries value at time $t$, and $\sum s$ denotes the sum over all values in the timeseries. This distance metric yields a lower value if two timeseries are of a similar scale and if they have simliar shapes.
 <br><br>
 We incorporate the results of the $k$-nearest-neighbors algorithm as an additional feature for a given film, by computing the inverse-distance weighted average of the opening weekend gross for each of its $k$ neighbors. The following plots show the results of nearest neighbors for two films when $k=3$.
 <br><br>
@@ -73,7 +78,7 @@ We incorporate the results of the $k$-nearest-neighbors algorithm as an addition
 <br><br><br><br>
 <big><b>Model:</b></big>
 <br><br>
-We choose a linear model for prediction, and perform 10-fold cross-validation on all combinations of features for feature subset selection. The resulting model has the form:
+We choose a linear model for prediction, and perform 10-fold cross-validation on all subsets of features to carry out feature subset selection. The resulting model has the form:
 <br><br>
 $y = c_{1}x_{1} + c_{2}x_{2} + c_{3}x_{3} + c_{4}x_{4} + c_{5}x_{5}$
 <br><br>

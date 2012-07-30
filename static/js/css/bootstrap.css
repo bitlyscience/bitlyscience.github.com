@@ -1,0 +1,81 @@
+body { 
+    margin: 5em 0 0 0; 
+    vertical-align: middle; 
+    color: #636363;
+    font-family: 'PT Sans', sans-serif;
+    margin-left: 40px;
+} 
+#content { 
+    width: 920px; 
+    text-align: left; 
+    margin: 0 auto; 
+}
+h1 {
+    font-size: 2em;
+    
+}
+h2 {
+    font-size: 20px;
+}
+p {
+    font-size: smaller;
+}
+
+a:link {
+    color: black;
+    text-decoration:none;
+}
+a:visited {
+    color: black;
+    text-decoration:none;
+}
+a:hover {
+    color: #43A2CA;
+    text-decoration:none;
+}
+a.graph:hover{
+    color: #43A2CA;
+    text-decoration:none; 
+}
+a:active {
+    color: #43A2CA;
+    text-decoration:none;
+}
+
+.science_title {
+    text-align: left;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left: 00px;
+}
+.graph_title {
+    margin-top: 20px;
+    color: black;
+    text-align: left;
+    width: 920px;
+    height: 50px;
+}
+.science_graph{
+    height: 500px
+}
+.graph_legend{
+    margin-bottom: 2em;
+    font-size: smaller;
+}
+.projects {
+    margin-top: 20px;
+}
+.preview {
+    display: inline-block;
+    height: 100px;
+    margin-bottom: 3em;
+    width: 920px;
+    font-size: smaller;
+    background-size: 920px;
+}
+.title {
+    margin: 2px 0 0 440px;
+    position: absolute;
+    text-align: right;
+    width: 480px;
+}

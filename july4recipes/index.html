@@ -27,18 +27,16 @@ function draw(data) {
             d3.select("#"+d.properties.name)
               .style("opacity", 1)
               .style("stroke", "black")
-//            d3.selectAll(".graph_title")
-//              .text(d.properties.name)
             })
-//        .on("click", function(d) {
-//            window.location="http://bitlyscience.github.com"//d.url
-//        })
         .on("mouseout", function(d) {
             d3.select("#"+d.properties.name)
               .style("stroke", "white")
             d3.selectAll("path")
               .style("opacity", 1)
         })
+
+        d3.json('/july4recipes/data/index.json', fill);
+        d3.json('/july4recipes/data/title_link.json', title);
 }
 
 function title(data) {
@@ -110,8 +108,6 @@ function legend(data) {
 
 <script>
 d3.json('/july4recipes/data/us-states.json', draw);
-d3.json('/july4recipes/data/index.json', fill);
-d3.json('/july4recipes/data/title_link.json', title);
 d3.json('/july4recipes/data/color_key.json', legend);
 </script>
 

@@ -1,0 +1,227 @@
+<html>
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+@import url(style.css);
+
+body {
+    width: 100%;
+    text-align: center;
+}
+
+.map_country {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1px;
+  stroke-linejoin: round;
+}
+
+.bar.positive {
+  fill: brown;
+}
+
+.bar.negative {
+  fill: steelblue;
+}
+
+.axis text {
+  font: 10px sans-serif;
+  color: blue;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.separator {
+    stroke: #555;
+}
+
+.container {
+    padding: 50px;
+    float: left;
+}
+
+.chartc {
+    border-left: 1px solid #eee;
+}
+
+.title {
+    font-size: 36px;
+}
+
+#colorbar {
+    display: inline-block;
+    width: 100px;
+    
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='steelblue', endColorstr='red'); /* for IE */
+    background: -webkit-gradient(linear, left top, right top, from(steelblue), to(red)); /* for webkit browsers */
+    background: -moz-linear-gradient(left, steelblue, red); /* for firefox 3.6+ */
+}
+
+#nodata {
+    display: inline-block;
+    width: 10px;
+    background: #aaa
+}
+
+</style>
+<body>
+<script src="js/d3.v3.min.js"></script>
+<script src="js/queue.v1.min.js"></script>
+
+<div class="legend">
+    less clicks : <span id=colorbar>&nbsp;</span> : more clicks<br>
+    no data : <span id=nodata>&nbsp;</span>
+</div>
+<div class="mapc container">
+    <div id=network_title class=title></div>
+    <select id=networks><option>Select a Network</option></select>
+    <div id="world"></div>
+</div>
+<div class="chartc container">
+    <div id="chart_title" class=title></div>
+    <div id="chart"></div>
+</div>
+<script>
+
+var mwidth = 600,
+    mheight = 500;
+
+var cmargin = {top: 30, right: 10, bottom: 10, left: 100},
+    cwidth = 550 - cmargin.left - cmargin.right,
+    cheight = 500 - cmargin.top - cmargin.bottom;
+
+
+var quantize = d3.scale.quantize()
+    .domain([0, .15])
+    .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
+
+var xy = d3.geo.mercator().translate([290, 280]).scale(600)
+    path = d3.geo.path().projection(xy);
+
+var map = d3.select("#world").append("svg")
+    .attr("width", mwidth)
+    .attr("height", mheight);
+
+var chart = d3.select("#chart").append("svg")
+    .attr("width", cwidth + cmargin.left + cmargin.right)
+    .attr("height", cheight + cmargin.top + cmargin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + cmargin.left + "," + cmargin.top +")");
+
+queue()
+    .defer(d3.json, "data/world-countries.json")
+    .defer(d3.json, "data/ctry_ntwk.json")
+    .await(ready);
+
+function ready(error, world, data) {
+    d3.select("#networks").selectAll("option")
+        .data(data.networks)
+        .enter()
+        .append("option")
+        .attr("value", function(d) { return d; })
+        .text(function(d) { return d; });
+
+    d3.select("#networks").on("change", function() {
+        updateMap(this.value);
+    });
+
+    map.selectAll("path")
+    	.data(world.features)
+    	.enter().append("svg:path")
+        .attr("class", "map_country")
+        .attr("id", function(d) { return "ctry-" + d.name })
+        .attr("d", path)
+        .on("click", function(d) {
+            updateChart(d.id, d.properties.name);
+        });
+
+    updateMap("twitter");
+
+    var chartScale = d3.svg.axis()
+        .orient("left");
+    function updateChart(country, name) {
+        d3.select("#chart_title").text(name);
+
+        var d  = data.country[country];
+        if (d == undefined ) {
+            d = {};
+        }
+
+        var networks = [],
+            values = [];
+
+        for (var key in d) {
+            networks.push(key);
+            values.push(d[key]);
+        }
+
+        var x0 = Math.max(-d3.min(values), d3.max(values));
+        
+        var x = d3.scale.linear()
+            .domain([-x0, x0])
+            .range([0, cwidth])
+            .nice();
+
+        var y = d3.scale.ordinal()
+            .domain(d3.range(values.length))
+            .rangeRoundBands([0, cheight], .2);
+        
+
+        var nchart = chart.selectAll(".bar")
+            .data(values, function(d,i) { return networks[i]; })
+
+        nchart.enter().append("rect")
+            .attr("class", function(d) { return d < 0 ? "bar negative" : "bar positive"; })
+            .attr("x", function(d) { return x(Math.min(0, d)); })
+            .attr("y", function(d, i) { return y(i); })
+            .attr("height", y.rangeBand())
+            .text(function(d, i) { return networks[i]; })
+            .transition().delay(250)
+            .attr("width", function(d) { return Math.abs(x(d) - x(0)); })
+
+        nchart.transition().delay(250)
+            .attr("class", function(d) { return d < 0 ? "bar negative" : "bar positive"; })
+            .attr("x", function(d) { return x(Math.min(0, d)); })
+            .attr("y", function(d, i) { return y(i); })
+            .attr("width", function(d) { return Math.abs(x(d) - x(0)); })
+            .attr("height", y.rangeBand())
+
+        nchart.exit().remove();
+
+        chartScale.scale(y).tickValues(networks);
+
+        chart.selectAll(".axis").remove();
+
+        chart.append("g")
+            .attr("class", "y axis")
+            .transition().duration(250)
+            .call(chartScale);
+
+        chart.append("g")
+            .attr("class", "y axis separator")
+          .append("line")
+            .attr("x1", x(0))
+            .attr("x2", x(0))
+            .attr("y1", 0)
+            .attr("y2", cheight);
+    }
+
+    function updateMap(network) {
+        d3.select("#network_title").text(network);
+
+        var totals = data.totals[network];
+        var color = d3.scale.linear().domain([totals.low, totals.high]).range(["steelblue", "red"]).clamp(true);
+
+        d3.selectAll(".map_country").transition().delay(500).style("fill", function(d) { if (data.country[d.id] == undefined || data.country[d.id][network] == undefined) { return "#aaa"; } return color(data.country[d.id][network]); });
+    }
+}
+
+
+</script>

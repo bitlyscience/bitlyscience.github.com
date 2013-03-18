@@ -1,4 +1,5 @@
 
+
 @import url(//fonts.googleapis.com/css?family=PT+Serif|PT+Serif:b|PT+Serif:i|PT+Sans|PT+Sans:b);
 
 html {
@@ -41,10 +42,7 @@ h1, h2 {
 }
 
 h2 a {
-  color: #ccc;
-  left: -20px;
-  position: absolute;
-  width: 740px;
+  color: #944;
 }
 
 footer {

@@ -1,21 +1,23 @@
-<html>
-
 <!DOCTYPE html>
 <meta charset="utf-8">
+<title>breakdown of traffic from social networks by country</title>
 <style>
 
 @import url(style.css);
-
-body {
-    width: 100%;
-    text-align: center;
-}
 
 .map_country {
   fill: none;
   stroke: #666;
   stroke-width: 1px;
   stroke-linejoin: round;
+}
+
+.vcontainer {
+    width: 100%;
+    position:absolute;
+    left:0;
+    right:0;
+    text-align: center;
 }
 
 .bar.positive {
@@ -44,7 +46,7 @@ body {
 
 .container {
     padding: 50px;
-    float: left;
+    display: inline-block;
 }
 
 .chartc {
@@ -59,9 +61,9 @@ body {
     display: inline-block;
     width: 100px;
     
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='red', endColorstr='steelblue'); /* for IE */
-    background: -webkit-gradient(linear, left top, right top, from(red), to(steelblue)); /* for webkit browsers */
-    background: -moz-linear-gradient(left,  red,  steelblue); /* for firefox 3.6+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='steelblue', endColorstr='red'); /* for IE */
+    background: -webkit-gradient(linear, left top, right top, from(steelblue), to(red)); /* for webkit browsers */
+    background: -moz-linear-gradient(left, steelblue, red); /* for firefox 3.6+ */
 }
 
 #nodata {
@@ -71,23 +73,59 @@ body {
 }
 
 </style>
-<body>
 <script src="js/d3.v3.min.js"></script>
 <script src="js/queue.v1.min.js"></script>
 
-<div class="legend">
-    more clicks : <span id=colorbar>&nbsp;</span> : less clicks<br>
-    no data : <span id=nodata>&nbsp;</span>
+<header>
+    <aside>March 19, 2013</aside>
+    <a href="http://blog.bitly.com">bitly science team</a>
+</header>
+
+<h1>breakdown of traffic from social networks by country</h1>
+
+<h2>
+    This vis shows a breakdown of traffic from various countries to social
+    networks.  It shows how much traffic, normalized by the country's total
+    traffic, originates from the selected social network.  This is a product of
+    the <b>bitly science team</b> and the full writeup can be found at the <a
+    href="http://blog.bitly.com/post/45755352163/how-people-use-social-networks-around-the-world">bitly
+    blog</a>
+    <br>
+    Select a social network on the right to change what network the colors on
+    the map are tracking.  Click on a country to see a breakdown of their
+    traffic on the right
+</h2>
+
+<p>
+ The map indicates how the proportion of a country's traffic from the selected
+ social network compared to the proportion for the world as a whole. A very red
+ country indicates the social network is especially popular in that country. An
+ example of this is the lack of traffic originating from twitter in China
+ because of that country's blocks on the website.  On the right, we see a
+ breakdown over all tracked social networks for the selected country.
+</p>
+
+<br>
+<hr>
+<br>
+
+<div class="vcontainer">
+    <div class="legend">
+        less clicks : <span id=colorbar>&nbsp;</span> : more clicks<br>
+        no data : <span id=nodata>&nbsp;</span>
+    </div>
+    <div class="mapc container">
+        <div id=network_title class=title></div>
+        change world-map's social network: <select id=networks><option>Select a Network</option></select>
+        <div id="world"></div>
+    </div>
+    <div class="chartc container">
+        <div id="chart_title" class=title></div>
+        <span>Click on a country in the world-map to see a detailed overview of it's usage of all social networks</span>
+        <div id="chart"></div>
+    </div>
 </div>
-<div class="mapc container">
-    <div id=network_title class=title></div>
-    <select id=networks><option>Select a Network</option></select>
-    <div id="world"></div>
-</div>
-<div class="chartc container">
-    <div id="chart_title" class=title></div>
-    <div id="chart"></div>
-</div>
+
 <script>
 
 var mwidth = 600,
@@ -96,11 +134,6 @@ var mwidth = 600,
 var cmargin = {top: 30, right: 10, bottom: 10, left: 100},
     cwidth = 550 - cmargin.left - cmargin.right,
     cheight = 500 - cmargin.top - cmargin.bottom;
-
-
-var quantize = d3.scale.quantize()
-    .domain([0, .15])
-    .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
 
 var xy = d3.geo.mercator().translate([290, 280]).scale(600)
     path = d3.geo.path().projection(xy);
@@ -126,6 +159,7 @@ function ready(error, world, data) {
         .enter()
         .append("option")
         .attr("value", function(d) { return d; })
+        .attr("id", function(d) { return d; })
         .text(function(d) { return d; });
 
     d3.select("#networks").on("change", function() {
@@ -142,10 +176,13 @@ function ready(error, world, data) {
             updateChart(d.id, d.properties.name);
         });
 
-    updateMap("twitter");
-
     var chartScale = d3.svg.axis()
         .orient("left");
+
+    updateMap("twitter");
+    updateChart("US", "United States of America");
+
+
     function updateChart(country, name) {
         d3.select("#chart_title").text(name);
 
@@ -215,6 +252,9 @@ function ready(error, world, data) {
 
     function updateMap(network) {
         d3.select("#network_title").text(network);
+
+        // Explicitly set the selected dropdown item for when we update the map in javascript
+        d3.select("#networks").selectAll("option").property("selected", function(d, i) { console.log(i); if (d == network) { return true; } return false; });
 
         var totals = data.totals[network];
         var color = d3.scale.linear().domain([totals.low, totals.high]).range(["steelblue", "red"]).clamp(true);

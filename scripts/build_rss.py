@@ -19,14 +19,15 @@ import os
 
 rss_opening_tags = \
 '<?xml version="1.0" encoding="utf-8"?>\n\
-<rss version="2.0">\n\
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n\
 <channel>\n\
     <title>Bitly Science RSS 2.0 Feed</title>\n\
     <link>http://bitlyscience.github.io/</link>\n\
     <description>Exciting things happening at the intersection of science and the world of bitly!</description>\n\n'
 
 rss_closing_tags = \
-'</channel>\n\
+'<atom:link href="http://bitlyscience.github.io/rss.xml" rel="self" type="application/rss+xml" />\n\
+</channel>\n\
 </rss>'
 
 DIR_NAME, _ = os.path.split(os.path.abspath(__file__))
@@ -59,6 +60,7 @@ def build_rss_file():
         fh.write('<item>\n  <title>' + title + '</title>\n')
         fh.write('  <link>' + link + '</link>\n')
         fh.write('  <description>' + description + '</description>\n'  )
+        fh.write('  <guid>' + link + '</guid>\n')
         fh.write('</item>\n\n')
     
     fh.write(rss_closing_tags)
